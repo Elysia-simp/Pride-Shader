@@ -1,0 +1,12 @@
+float ShadowInt : CONTROLOBJECT < string name = "Controller.pmx"; string item = "Shadow Intensity"; >; 
+float ROff : CONTROLOBJECT < string name = "Controller.pmx"; string item = "Rim Offset"; >; 
+float RPow : CONTROLOBJECT < string name = "Controller.pmx"; string item = "Rim Power"; >; 
+float RRate : CONTROLOBJECT < string name = "Controller.pmx"; string item = "Rim Rate"; >;
+float RRange : CONTROLOBJECT < string name = "Controller.pmx"; string item = "Rim Range"; >; 
+float Rim_R : CONTROLOBJECT < string name = "Controller.pmx"; string item = "Rim R"; >; 
+float Rim_G : CONTROLOBJECT < string name = "Controller.pmx"; string item = "Rim G"; >; 
+float Rim_B : CONTROLOBJECT < string name = "Controller.pmx"; string item = "Rim B"; >; 
+float SPow : CONTROLOBJECT < string name = "Controller.pmx"; string item = "Specular Power"; >;
+float SBright : CONTROLOBJECT < string name = "Controller.pmx"; string item = "Specular Brightness"; >;
+float normalRot : CONTROLOBJECT < string name = "Controller.pmx"; string item = "Normal Rotation"; >;
+float normalflip : CONTROLOBJECT < string name = "Controller.pmx"; string item = "Normal Flip"; >;
