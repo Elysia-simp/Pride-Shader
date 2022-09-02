@@ -63,8 +63,7 @@ edge_out vs_edge (vs_in i)
     edge_out o = (edge_out)0; //okay there was no excuse for the vertex shader
     //but this time it's to cheat and not have all of what VS needs in here as well
     o.vertex = i.vertexcolor;
-    //i.pos.xyz = i.pos.xyz + i.normal * i.vertexcolor.w * 0.015 ;
-    i.pos.xyz = outline(i.pos.xyz, mmd_cameraPosition, normalize(i.normal), 0.0015, i.vertexcolor.w * viewDepth, i.vertexcolor.w * viewDepth);
+    i.pos.xyz = outline(i.pos.xyz, mmd_cameraPosition, normalize(i.normal), 0.0015, i.vertexcolor.w * viewDepth);
     o.pos = mul(i.pos, mmd_wvp);
     return o;
 }
