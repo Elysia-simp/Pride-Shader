@@ -1,6 +1,7 @@
 //includes
 #include <sub/textures.fxh>
 #include <sub/controllers.fxh>
+
 //less editing in the material value if i did this
 bool use_subtexture;
 
@@ -23,11 +24,11 @@ float4 egColor;
 float3 light_d : DIRECTION < string Object = "Light"; >;
 
 
-float3 outline(float3 pos, float3 camera_pos, float3 normal, float outline_rate, float vertex_y, float vertex_x)
+float3 outline(float3 pos, float3 camera_pos, float3 normal, float outline_rate, float vertex)
 {   
     float3 offset_pos = 0;
 
-    offset_pos.xyz = ((normalize(normal)) * (vertex_x * 0.013) ) + (pos);
+    offset_pos.xyz = ((normalize(normal)) * (vertex * 0.013) ) + (pos);
     offset_pos.z = offset_pos.z + 0.0015;
     return offset_pos;
 }
