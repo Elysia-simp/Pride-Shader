@@ -3,6 +3,22 @@
 2) models exported with minmode's PMX noesis script
 3) some brain power
 
+# Rules
+
+Albiet basic rules please follow them
+
+1) Please credit me as either Chips, Chi, Chizukimo (don't care they're all me)
+
+2) Please do not use anything here for commercial profit
+
+3) You are allowed to modify this shader to your hearts content
+
+4) I am not responsible for the damage one may cause with this shader
+
+5) Finally Please do not use this for R-18 related content
+
+(like please they're all minors and one of them is dead)
+
 # Usage
 
 Set your Def texture in the Spheremap slot and your Sdw in the Toon slot
