@@ -5,7 +5,7 @@
 
 # Usage
 
-Set your Def texture in the Material slot and your Sdw in the Toon slot
+Set your Def texture in the Spheremap slot and your Sdw in the Toon slot
 
 Now set your Materials as such
 
