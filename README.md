@@ -3,7 +3,7 @@
 2) models exported with minmode's PMX noesis script
 3) some brain power
 
-#Usage
+# Usage
 
 Set your Def texture in the Material slot and your Sdw in the Toon slot
 
@@ -15,4 +15,10 @@ Finally use photoshop with nvidia tools to make any Cubemaps you might need (you
 
 finally just duplicate Material.fx and just give it the proper names
 
+if you want self shadow load HgShadow (I'm not using mmd's default shadowmap)
+
 that should be it really just report any bugs/errors I've made
+
+# Credits
+
+HariganeP for HgShadow_ObjHeader
