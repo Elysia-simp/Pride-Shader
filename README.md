@@ -18,7 +18,9 @@ finally just duplicate Material.fx and just give it the proper names
 if you want self shadow load HgShadow (I'm not using mmd's default shadowmap)
 
 that should be it really just report any bugs/errors I've made
+
 Errors related to normals cannot be repremanded at this time due to asset studio's lack of tagent export
+
 also asset ripper does not work with this game
 
 # Credits
