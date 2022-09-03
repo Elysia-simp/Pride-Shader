@@ -5,6 +5,11 @@
 #include <sub/header.fxh>
 #include <HgShadow_ObjHeader.fxh>
 //
+//atlas shit
+float time_elapsed : TIME;
+int frameNumber = 1;
+int totalFrames = 4;
+float animationSpeed = 1;
 
 //base structure
 struct vs_in
@@ -90,6 +95,7 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
 
     //cause i know my ass isnt writing i.func all day
     float2 uv = i.uv;
+    float2 uv2 = i.uv2; //miku only
     float3 view = normalize(i.view);
     float3 normal = i.normal;
     float3 reflvect = reflect(normal, view);//I put there here first even tho only the cube map uses it
@@ -129,12 +135,13 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     float lightsmooth = 1;
     if (Tex.a <= 0.8 && alpha == 0){ // hair uses a softer shadow for some reason but im in no position to argue lmfao
     
-    lightsmooth = smoothstep(-0.12, 0.000000000025, (ndotl * (Def.r * 0.5)) + 0.05); //i fucked up badly somewhere
+    lightsmooth = saturate(smoothstep(-0.12, 0.000000000025, (ndotl * (Def.r * 0.5)) + 0.05)); //i fucked up badly somewhere
     }
     else{
-    lightsmooth = smoothstep(0, 0.000000000025, (ndotl * (Def.r * 0.5)) + 0.11);
+    lightsmooth = saturate(smoothstep(0, 0.000000000025, (ndotl * (Def.r * 0.5)) + 0.11));
     }
     lightsmooth = clamp (lightsmooth, 0, 1);
+    color.a = 1;
 
     //specular
     float ndoth = dot(normal, view); 
@@ -143,7 +150,7 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     float S_Bright = 1+SBright;
     float specularlight = pow(ndoth, 15 * S_Power) * Def.g * S_Bright;
     if (Tex.a <= 0.8 && alpha == 0){
-    specularlight = smoothstep(0, 0.0025, specularlight);
+    specularlight = saturate(smoothstep(0, 0.0025, specularlight));
     }
     else{
         specularlight = specularlight;
@@ -185,25 +192,44 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     if (use_subtexture){
     color.rgb = lerp(color.rgb, color.rgb + (color.rgb * specularlight), Def.a * Def.b * (1-lightsmooth));
     }
-    color.rgb = lerp(color.rgb, Sdw.rgb, lightsmooth * shadintensity );
+    color.rgb = lerp(color.rgb, Sdw.rgb, saturate(lightsmooth * shadintensity) );
 
     #ifdef cubemap
     if(Def.g >= 0.52f  && Def.g <= 0.8f){
-    color += ((cube * cube) * CubeEffectiveness) * Def.a ;
+    color += saturate(((cube * cube) * CubeEffectiveness) * Def.a );
     }
     if (Def.g >= 0.52f  && Def.g <= 0.8f && alpha >= 1){
-    color += ((cube * cube) * CubeEffectiveness) * Def.a * Tex.a;
+    color += saturate(((cube * cube) * CubeEffectiveness) * Def.a * Tex.a);
     }
     #endif
+    //atlas animation (miku only)
+    frameNumber += frac(time_elapsed * animationSpeed) * totalFrames;
+    float frame = clamp(frameNumber, 0 , totalFrames);
+    float frameUpdate;
+    float mod = modf(frame / 1, frameUpdate);
 
+    float off = frameUpdate / 3;
+
+    #ifdef atlas
+    if (frameUpdate == 1) {
+     uv2.x += 0.5;
+    } 
+    else if (frameUpdate == 2) {
+    uv2.y += 0.5;
+    }
+    else if (frameUpdate == 3) {
+    uv2.x += 0.5;
+    uv2.y += 0.5;
+    }
+    #endif
     color *= egColor;
     color.rgb = lerp(color.rgb, color.rgb + (ndotv *(1+ rim_col)), ndotv * Def.b); //the game handles rgb colors externally for rimlight
     if(emi_type == 1){
     color += tex2D(emissionSampler, uv);
     }
     else if(emi_type == 2){
-    uv = i.uv2;
-    color += tex2D(emissionSampler, uv);
+    uv.y += 0.5;
+    color += tex2D(emissionSampler, uv2);
     }
 
     #ifdef glow
@@ -222,12 +248,13 @@ technique model_SS_tech <string MMDPASS = "object_ss"; >
     {
         alphablendenable = true;
         cullmode = ccw;
-        VertexShader = compile vs_3_0 vs_model();
-        PixelShader = compile ps_3_0 ps_model();
         #ifdef additive
         SrcBlend = SrcColor;
         DestBlend = ONE;
         #endif
+        VertexShader = compile vs_3_0 vs_model();
+        PixelShader = compile ps_3_0 ps_model();
+
     }
     pass outline
     {
@@ -243,6 +270,10 @@ technique model_tech <string MMDPASS = "object"; >
     {
         alphablendenable = true;
         cullmode = ccw;
+        #ifdef additive
+        SrcBlend = SrcColor;
+        DestBlend = ONE;
+        #endif
         VertexShader = compile vs_3_0 vs_model();
         PixelShader = compile ps_3_0 ps_model();
     }
