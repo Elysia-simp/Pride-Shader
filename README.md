@@ -1,6 +1,6 @@
 # Prerequisites
 1) obviously a way to decrypt/rip the game
-2) models exported with minmode's PMX noesis script
+2) models exported with [minmode's PMX noesis script](https://www.deviantart.com/minmode/art/Update-1-6-Noesis-PMX-VMD-export-809252773)
 3) some brain power
 
 # Rules
