@@ -87,7 +87,6 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     {
         comp = HgShadow_GetSelfShadowRate(i.ppos);
     }
-    comp = clamp(comp, 0, 1);
 
     //cause i know my ass isnt writing i.func all day
     float2 uv = i.uv;
