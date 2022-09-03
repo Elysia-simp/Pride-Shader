@@ -29,9 +29,9 @@ Now set your Materials as such
 
 SubTex for anything that isn't a Face mesh and you can do Add or Multi for anything that is a face (leaving it disabled will make mmd ignore it entirely)
 
-Finally use photoshop with nvidia tools to make any Cubemaps you might need (you can also use any external programs I haven't really tested much)
+use photoshop with nvidia tools to make any Cubemaps you might need (you can also use any external programs I haven't really tested much)
 
-finally just duplicate Material.fx and just give it the proper names
+then just duplicate Material.fx and just give it the proper names
 
 if you want self shadow load HgShadow (I'm not using mmd's default shadowmap)
 
