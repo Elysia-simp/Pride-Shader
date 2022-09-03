@@ -13,9 +13,11 @@ Albiet basic rules please follow them
 
 3) You are allowed to modify this shader to your hearts content
 
-4) I am not responsible for the damage one may cause with this shader
+4) You may distribute the edited Material.fx file for convenience but if you didn't edit the main shader (shader.fxh/sub folder) Please link to here instead
 
-5) Finally Please do not use this for R-18 related content
+5) I am not responsible for the damage one may cause with this shader
+
+6) Finally Please do not use this for R-18 related content
 
 (like please they're all minors and one of them is dead)
 
@@ -35,7 +37,7 @@ if you want self shadow load HgShadow (I'm not using mmd's default shadowmap)
 
 that should be it really just report any bugs/errors I've made
 
-Errors related to normals cannot be repremanded at this time due to asset studio's lack of tagent export
+Errors related to normals cannot be fixed at this time due to asset studio's lack of tagent export
 
 also asset ripper does not work with this game
 
