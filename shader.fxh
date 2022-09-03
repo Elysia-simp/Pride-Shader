@@ -63,6 +63,7 @@ edge_out vs_edge (vs_in i)
     edge_out o = (edge_out)0; //okay there was no excuse for the vertex shader
     //but this time it's to cheat and not have all of what VS needs in here as well
     o.vertex = i.vertexcolor;
+    //i.pos.xyz = i.pos.xyz + i.normal * i.vertexcolor.w * 0.015 ;
     i.pos.xyz = outline(i.pos.xyz, mmd_cameraPosition, normalize(i.normal), 0.0015, i.vertexcolor.w * viewDepth);
     o.pos = mul(i.pos, mmd_wvp);
     return o;
@@ -146,10 +147,10 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     float S_Power = 1+SPow;
     float S_Bright = 1+SBright;
     float specularlight = pow(ndoth, 15 * S_Power)* Def.g * S_Bright;
-    if (spec_type == 0){
+    if (Tex.a <= 0.8 && alpha == 0){
     specularlight = smoothstep(0, 0.0025, specularlight);
     }
-    else if(spec_type == 1){
+    else{
         specularlight = specularlight;
     }
     specularlight = clamp(specularlight, 0, 1);
