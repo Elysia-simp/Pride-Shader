@@ -118,28 +118,22 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     #endif
 
     //toon
-    float3 ndotl = 1; //intizilize for the else if
+    float3 ndotl = (dot(light_d, normal));
 
-    if (use_subtexture)
-    {
-    light_d.z = -light_d.z; //i always find myself doing this but at the same time it's whatever lmfao
-    ndotl = (dot(light_d, normal)) * comp * 3;
+    if (use_subtexture){
+    ndotl *= saturate(comp);
     }
-    else if(!use_subtexture)
-    {
+    else if(!use_subtexture){
     light_d.y *= 0;
-    light_d.z = -light_d.z;
     light_d.z *= 3;
-    ndotl = (dot(light_d, normal)) * 3;
     }
     float lightsmooth = 1;
-    if (Tex.a <= 0.8 && alpha == 0) // hair uses a softer shadow for some reason but im in no position to argue lmfao
-    {
-    lightsmooth = smoothstep(0.52, 0.000000000025, saturate(ndotl * Def.r)); //i fucked up badly somewhere
+    if (Tex.a <= 0.8 && alpha == 0){ // hair uses a softer shadow for some reason but im in no position to argue lmfao
+    
+    lightsmooth = smoothstep(-0.12, 0.000000000025, (ndotl * (Def.r * 0.5)) + 0.05); //i fucked up badly somewhere
     }
-    else
-    {
-    lightsmooth = smoothstep(0.12, 0.000000000025, saturate(ndotl * Def.r) - 0.2);
+    else{
+    lightsmooth = smoothstep(0, 0.000000000025, (ndotl * (Def.r * 0.5)) + 0.11);
     }
     lightsmooth = clamp (lightsmooth, 0, 1);
 
@@ -157,8 +151,7 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     }
     specularlight = clamp(specularlight, 0, 1);
 
-    if(alpha == 1)
-    {
+    if(alpha == 1){
         color.a = Tex.a;
     }
     else if(alpha == 2){
@@ -172,8 +165,7 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     float R_Rate = 1+RRate;
     float R_Range = 1+RRange;
     float4 ndotv = saturate(1.0 + ROff - (pow(dot(normal, view), (1 * R_Rate))))* (1.5 * R_Power) * Def.b;
-    if(alpha >= 1)
-    {
+    if(alpha >= 1){
         ndotv *= Tex.a;
         specularlight = Tex.a;
     }
@@ -191,8 +183,7 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     shadintensity = clamp(shadintensity, 0, 5);
 
     //lerps
-    if (use_subtexture)
-    {
+    if (use_subtexture){
     color.rgb = lerp(color.rgb, color.rgb + (color.rgb * specularlight), Def.a * Def.b * (1-lightsmooth));
     }
     color.rgb = lerp(color.rgb, Sdw.rgb, lightsmooth * shadintensity );
@@ -201,20 +192,17 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     if(Def.g >= 0.52f  && Def.g <= 0.8f){
     color += ((cube * cube) * CubeEffectiveness) * Def.a ;
     }
-    if (Def.g >= 0.52f  && Def.g <= 0.8f && alpha >= 1)
-    {
+    if (Def.g >= 0.52f  && Def.g <= 0.8f && alpha >= 1){
     color += ((cube * cube) * CubeEffectiveness) * Def.a * Tex.a;
     }
     #endif
 
     color *= egColor;
     color.rgb = lerp(color.rgb, color.rgb + (ndotv *(1+ rim_col)), ndotv * Def.b); //the game handles rgb colors externally for rimlight
-    if(emi_type == 1)
-    {
+    if(emi_type == 1){
     color += tex2D(emissionSampler, uv);
     }
-    else if(emi_type == 2)
-    {
+    else if(emi_type == 2){
     uv = i.uv2;
     color += tex2D(emissionSampler, uv);
     }
