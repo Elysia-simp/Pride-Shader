@@ -122,22 +122,24 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
 
     if (use_subtexture)
     {
-    ndotl = (dot(light_d, normal)) * comp * (Def.r * 0.5);
+    light_d.z = -light_d.z; //i always find myself doing this but at the same time it's whatever lmfao
+    ndotl = (dot(light_d, normal)) * comp * 3;
     }
     else if(!use_subtexture)
     {
     light_d.y *= 0;
+    light_d.z = -light_d.z;
     light_d.z *= 3;
-    ndotl = (dot(light_d, normal)) * Def.r;
+    ndotl = (dot(light_d, normal)) * 3;
     }
     float lightsmooth = 1;
     if (Tex.a <= 0.8 && alpha == 0) // hair uses a softer shadow for some reason but im in no position to argue lmfao
     {
-    lightsmooth = smoothstep(0, 0.075, ndotl + 0.15);
+    lightsmooth = smoothstep(0.52, 0.000000000025, saturate(ndotl * Def.r)); //i fucked up badly somewhere
     }
     else
     {
-    lightsmooth = smoothstep(0, 0.000000000000025, ndotl + 0.1);// think I fucked up somewhere but eh
+    lightsmooth = smoothstep(0.12, 0.000000000025, saturate(ndotl * Def.r) - 0.2);
     }
     lightsmooth = clamp (lightsmooth, 0, 1);
 
@@ -146,7 +148,7 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     ndoth = clamp(ndoth, 0, 1);
     float S_Power = 1+SPow;
     float S_Bright = 1+SBright;
-    float specularlight = pow(ndoth, 15 * S_Power)* Def.g * S_Bright;
+    float specularlight = pow(ndoth, 15 * S_Power) * Def.g * S_Bright;
     if (Tex.a <= 0.8 && alpha == 0){
     specularlight = smoothstep(0, 0.0025, specularlight);
     }
