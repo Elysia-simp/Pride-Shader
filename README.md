@@ -37,9 +37,9 @@ if you want self shadow load HgShadow (I'm not using mmd's default shadowmap)
 
 that should be it really just report any bugs/errors I've made
 
-Errors related to normals cannot be fixed at this time due to asset studio's lack of tagent export
+Errors related to normals are being looked into (but cannot garentee a 100% fix as mmd doesn't rotate tagents)
 
-also asset ripper does not work with this game
+(Note that assetripper does not work with the game due to obfuscated unity version, use appropriate unity version and import models directly and export for tagents)
 
 # Credits
 
