@@ -10,3 +10,4 @@ float SPow : CONTROLOBJECT < string name = "Controller.pmx"; string item = "Spec
 float SBright : CONTROLOBJECT < string name = "Controller.pmx"; string item = "Specular Brightness"; >;
 float normalRot : CONTROLOBJECT < string name = "Controller.pmx"; string item = "Normal Rotation"; >;
 float normalflip : CONTROLOBJECT < string name = "Controller.pmx"; string item = "Normal Flip"; >;
+float sweat : CONTROLOBJECT < string name = "Controller.pmx"; string item = "Sweat"; >;
