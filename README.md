@@ -25,7 +25,7 @@ Albiet basic rules please follow them
 
 Set your Def texture in the Spheremap slot and your Sdw in the Toon slot
 
-Now set your Materials as such
+Now set your Materials (in PMXE) as such
 
 SubTex for anything that isn't a Face mesh and you can do Add or Multi for anything that is a face (leaving it disabled will make mmd ignore it entirely)
 
