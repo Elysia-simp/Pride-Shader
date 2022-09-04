@@ -23,6 +23,17 @@ sampler SDWSampler = sampler_state
 	ADDRESSU = CLAMP;
 	ADDRESSV = CLAMP;
 };
+#ifdef lyr
+texture LYRTexture : TEXTURE<
+string ResourceName = merge_strings("lyr/", lyr);
+>;
+sampler LYRSampler = sampler_state 
+{
+	texture = < LYRTexture >;
+	ADDRESSU = CLAMP;
+	ADDRESSV = CLAMP;
+};
+#endif
 
 #ifdef cubemap
 texture CubeTexture : TEXTURE < 
@@ -32,11 +43,11 @@ samplerCUBE CubeSampler = sampler_state
 {
 	TEXTURE = <CubeTexture>;
 	MinFilter = LINEAR;
-    MagFilter = LINEAR;
-    MipFilter = LINEAR;
-    AddressU = Clamp;
-    AddressV = Clamp;
-    AddressW = Clamp;
+    	MagFilter = LINEAR;
+   	MipFilter = LINEAR;
+    	AddressU = Clamp;
+    	AddressV = Clamp;
+    	AddressW = Clamp;
 };
 #endif
 
