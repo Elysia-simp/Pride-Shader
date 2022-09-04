@@ -3,6 +3,7 @@
 //#define atlas //only miku's 15th anniversary outfit uses this as far as i know
 #define emi_type 0 // 0: off 1: on 2: uv2
 #define emi "test.png"
+//#define lyr "test.png" //incomplete only uses specular
 
 //cubemap
 //#define cubemap "test.dds" //make your own
