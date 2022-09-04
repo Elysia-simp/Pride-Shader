@@ -95,7 +95,7 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
 
     //cause i know my ass isnt writing i.func all day
     float2 uv = i.uv;
-    float2 uv2 = i.uv2; //miku only
+    float2 uv2 = i.uv2; //face sweat and miku only emission
     float3 view = normalize(i.view);
     float3 normal = i.normal;
     float3 reflvect = reflect(normal, view);//I put there here first even tho only the cube map uses it
@@ -187,11 +187,37 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     //controller stuff
     float shadintensity = 1 + ShadowInt;
     shadintensity = clamp(shadintensity, 0, 5);
+    #ifdef lyr
 
+    float4 SweatMask = float4(1,1,1,1); //i fucking give up
+    uv2.x *= 0.5;
+    uv2.y *= 0.5;   
+
+    if(sweat >= 0.25 && sweat <= 0.75){
+        uv2.x += 0.5;
+        SweatMask = tex2D(LYRSampler, uv2);
+        Def.a = SweatMask;
+    }
+    else if(sweat >= 0.75){
+        uv2.x += 0.5;
+        uv2.y += 0.5;
+        SweatMask = tex2D(LYRSampler, uv2);
+        Def.a = SweatMask;
+    }
+    #endif
     //lerps
     if (use_subtexture){
     color.rgb = lerp(color.rgb, color.rgb + (color.rgb * specularlight), Def.a * Def.b * (1-lightsmooth));
     }
+
+    #ifdef lyr
+    if(sweat >= 0.25)
+    {
+        specularlight = saturate(smoothstep(0, 0.025, specularlight));
+        specularlight *= 0.07;
+        color.rgb = lerp(color.rgb, color.rgb + (color.rgb * specularlight), Def.a);
+    }
+    #endif
     color.rgb = lerp(color.rgb, Sdw.rgb, saturate(lightsmooth * shadintensity) );
 
     #ifdef cubemap
