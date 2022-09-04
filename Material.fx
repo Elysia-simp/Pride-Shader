@@ -9,6 +9,9 @@
 //#define cubemap "test.dds" //make your own
 #define CubeEffectiveness 1
 
+//specular
+#define base_specpow 1
+
 //extra
 //#define additive // eyelights only Kotone has alpha's thought for whatever reason
 //#define glow //This was made with Manashiku's PostGow shader
