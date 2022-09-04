@@ -123,22 +123,23 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     #endif
 
     //toon
+    if(!use_subtexture){
+    light_d.y *= 0;
+    light_d.z *= 3;
+    }
     float3 ndotl = (dot(light_d, normal));
 
     if (use_subtexture){
     ndotl *= saturate(comp);
     }
-    else if(!use_subtexture){
-    light_d.y *= 0;
-    light_d.z *= 3;
-    }
+
     float lightsmooth = 1;
     if (Tex.a <= 0.8 && alpha == 0){ // hair uses a softer shadow for some reason but im in no position to argue lmfao
     
-    lightsmooth = saturate(smoothstep(-0.12, 0.000000000025, (ndotl * (Def.r * 0.5)) + 0.05)); //i fucked up badly somewhere
+    lightsmooth = saturate(smoothstep(0.0001 * 100, Sdw.a * 0.5, (ndotl * (Def.r * 0.5)) + 0.11)); //i fucked up badly somewhere
     }
     else{
-    lightsmooth = saturate(smoothstep(0, 0.000000000025, (ndotl * (Def.r * 0.5)) + 0.11));
+    lightsmooth = saturate(smoothstep(0.00000001 * 50, Sdw.a * 0.03, (ndotl * (Def.r * 0.5)) + 0.11));
     }
     lightsmooth = clamp (lightsmooth, 0, 1);
     color.a = 1;
@@ -148,7 +149,7 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     ndoth = clamp(ndoth, 0, 1);
     float S_Power = 1+SPow;
     float S_Bright = 1+SBright;
-    float specularlight = pow(ndoth, 15 * S_Power) * Def.g * S_Bright;
+    float specularlight = pow(ndoth, 15 * (S_Power * base_specpow)) * Def.g * S_Bright;
     if (Tex.a <= 0.8 && alpha == 0){
     specularlight = saturate(smoothstep(0, 0.0025, specularlight));
     }
@@ -215,7 +216,7 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     {
         specularlight = saturate(smoothstep(0, 0.025, specularlight));
         specularlight *= 0.07;
-        color.rgb = lerp(color.rgb, color.rgb + (color.rgb * specularlight), Def.a);
+        color.rgb = lerp(color.rgb, color.rgb + (color.rgb * specularlight), Def.a * 2);
     }
     #endif
     color.rgb = lerp(color.rgb, Sdw.rgb, saturate(lightsmooth * shadintensity) );
