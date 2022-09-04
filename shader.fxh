@@ -108,13 +108,10 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     float4 Tex = tex2D(diffuseSampler, uv); // alpha channel is stencil mask
     //just impliment in your shader of choice I really don't care lol
 
-    float4 Def = tex2D(DEFSampler, uv); // r and g is also used to multiply with against the tangent
-    //but asset ripper doesnt know what version this game uses no matter how I edited the file
-    //so for now no tangents
-    //that or bug asset studio dev to actually impliment tangent support
+    float4 Def = tex2D(DEFSampler, uv); // r and g is also used to multiply with against the tangent?
+    //just write basic asset bundle loader function in unity and load gameobject
 
-    float4 Sdw = tex2D(SDWSampler, uv); //I genuinely don't know what alpha here does 
-    //I'm probably just stupid who knows wouldn't be news to 
+    float4 Sdw = tex2D(SDWSampler, uv);
     
 
     #ifdef cubemap
@@ -222,10 +219,10 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     color.rgb = lerp(color.rgb, Sdw.rgb, saturate(lightsmooth * shadintensity) );
 
     #ifdef cubemap
-    if(Def.g >= 0.52f  && Def.g <= 0.8f){
+    if(Def.g >= 0.605f  && Def.g <= 0.8f){
     color += saturate(((cube * cube) * CubeEffectiveness) * Def.a );
     }
-    if (Def.g >= 0.52f  && Def.g <= 0.8f && alpha >= 1){
+    else if (Def.g >= 0.605f  && Def.g <= 0.8f && alpha >= 1){
     color += saturate(((cube * cube) * CubeEffectiveness) * Def.a * Tex.a);
     }
     #endif
