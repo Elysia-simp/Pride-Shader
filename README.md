@@ -37,10 +37,20 @@ if you want self shadow load HgShadow (I'm not using mmd's default shadowmap)
 
 that should be it really just report any bugs/errors I've made
 
-Errors related to normals are being looked into (but cannot garentee a 100% fix as mmd doesn't rotate tagents)
-
-(Note that assetripper does not work with the game due to obfuscated unity version, use appropriate unity version and import models directly and export for tagents)
-
+Errors related to normals are being looked into (but cannot garentee a 100% fix)
 # Credits
 
 HariganeP for HgShadow_ObjHeader
+
+# Other notes
+
+This game uses tangents as previously stated however due to limitations that MMD has I cannot repremand every oddity made
+to rip them you'll need to study a bit and use unity to import the assets directly as AssetRipper (or any similar tool) will toss a unity version error or wont support tangents
+
+However this is completely optional (As of right now)
+
+
+
+Any and all error reports should be made in Issues or you can contact me in Discord: Chi#4089
+
+Though do consider reading the usage again before making the report and accidentally sending an honest mistake rather than an actual error report
