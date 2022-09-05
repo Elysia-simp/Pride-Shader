@@ -15,5 +15,7 @@
 //extra
 //#define additive // eyelights only Kotone has alpha's thought for whatever reason
 //#define glow //This was made with Manashiku's PostGow shader
+//#define tangent_outline //models exported with unity will have tangents and they use it like this
+//however with the state mmd's in with tangents i can only provide it for outlines at this time
 
-#include <shader.fxh>//////
+#include <shader.fxh>
