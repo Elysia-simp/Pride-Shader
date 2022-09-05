@@ -74,7 +74,7 @@ edge_out vs_edge (vs_in i)
     //i.pos.xyz = i.pos.xyz + i.tangent * i.vertexcolor.w * 0.015 ;
     i.pos.xyz = outline(i.pos.xyz, mmd_cameraPosition, normalize(i.normal), 0.0015, i.vertexcolor.w * viewDepth);
     #ifdef tangent_outline
-    i.pos.xyz = outline(i.pos.xyz, mmd_cameraPosition, normalize(i.tangent), 0.0015, i.vertexcolor.w * viewDepth);
+    i.pos.xyz = outline(i.pos.xyz, mmd_cameraPosition, normalize(i.tangent) + normalize(i.normal), 0.0015, i.vertexcolor.w * viewDepth);
     #endif
     o.pos = mul(i.pos, mmd_wvp);
     return o;
@@ -194,8 +194,19 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     #ifdef lyr
 
     float4 SweatMask = float4(1,1,1,1); //i fucking give up
+    float4 SweatTex = float4(1,1,1,1);
+    float2 uv3 = i.uv2; //this is so that mmd doesnt complain about it
     uv2.x *= 0.5;
+    uv3.x *= 0.5;
     uv2.y *= 0.5;   
+    uv3.y *= 0.5;   
+    if(sweat >= 0.25 && sweat <= 0.75){
+        SweatTex = tex2D(LYRSampler, uv3);
+         }
+    else if(sweat >= 0.75){
+        uv3.y += 0.5;
+        SweatTex = tex2D(LYRSampler, uv2);
+    }
 
     if(sweat >= 0.25 && sweat <= 0.75){
         uv2.x += 0.5;
@@ -219,6 +230,7 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     {
         specularlight = saturate(smoothstep(0, 0.025, specularlight));
         specularlight *= 0.07;
+        color.rgb = lerp(color.rgb, SweatTex, SweatMask);
         color.rgb = lerp(color.rgb, color.rgb + (color.rgb * specularlight), Def.a * 2);
     }
     #endif
