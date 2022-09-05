@@ -45,7 +45,7 @@ HariganeP for HgShadow_ObjHeader
 # Other notes
 
 This game uses tangents as previously stated however due to limitations that MMD has I cannot repremand every oddity made
-to rip them you'll need to study a bit and use unity to import the assets directly as AssetRipper (or any similar tool) will toss a unity version error or wont support tangents
+to rip them you'll need to study a bit and use unity to import the assets directly as AssetRipper (or any similar tool) will toss a unity version error or wont support tangents, So I can't possibly fix EVERY error that might of arrised from this at this time. Please understand!
 
 However this is completely optional (As of right now)
 
