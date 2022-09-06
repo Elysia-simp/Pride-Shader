@@ -231,7 +231,7 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
         specularlight = saturate(smoothstep(0, 0.025, specularlight));
         specularlight *= 0.07;
         color.rgb = lerp(color.rgb, SweatTex, SweatMask);
-        color.rgb = lerp(color.rgb, color.rgb + (color.rgb * specularlight), Def.a * 2);
+        color.rgb = lerp(color.rgb, color.rgb + specularlight, Def.a * 2);
     }
     #endif
     color.rgb = lerp(color.rgb, Sdw.rgb, saturate(lightsmooth * shadintensity) );
@@ -280,6 +280,38 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     }
     color = tex2D(emissionSampler, uv) * 1.5;
     color.a =1;
+    #endif
+    //DEBUGGING
+    #ifdef debug
+    if(debug == 1)
+    {
+        color.rgb = Tex.rgb;
+        color.a = 1;
+    }
+    else if(debug == 2){
+        color.rgb = Def.r;
+        color.a = 1;
+    }
+    else if(debug == 3){
+        color.rgb = Def.g;
+        color.a = 1;
+    }
+    else if(debug == 4){
+        color.rgb = Def.b;
+        color.a = 1;
+    }
+    else if(debug == 5)
+    {
+        color.rgb = Sdw.rgb;
+        color.a = 1;
+    }
+    else if(debug == 6){
+        color.rgb = Sdw.a;
+        color.a = 1;
+    }
+    else if(debug == 7){
+        color.rgb = Tex.a;
+    }
     #endif
     return color;
 }
