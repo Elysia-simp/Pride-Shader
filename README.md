@@ -1,3 +1,7 @@
+# Disclaimer
+
+Please don't come for me to add me on discord for help with decrypting this game I can only encourage you to look up how to do it yourself or study it yourself
+
 # Prerequisites
 1) obviously a way to decrypt/rip the game
 2) models exported with [minmode's PMX noesis script](https://www.deviantart.com/minmode/art/Update-1-6-Noesis-PMX-VMD-export-809252773)
