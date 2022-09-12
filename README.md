@@ -1,7 +1,11 @@
 # Prerequisites
 1) obviously a way to decrypt/rip the game
 2) models exported with [minmode's PMX noesis script](https://www.deviantart.com/minmode/art/Update-1-6-Noesis-PMX-VMD-export-809252773)
-3) some brain power
+
+    PS: I'm not adding support for models exported with blender and/or whatever other means, Sorry but I deem it unneeded to make the shader more complicated than I already made it lol
+    
+    
+4) some brain power
 
 # Rules
 
@@ -56,3 +60,9 @@ However this is completely optional (As of right now)
 Any and all error reports should be made in Issues or you can contact me in Discord: Chi#4089
 
 Though do consider reading the usage again before making the report and accidentally sending an honest mistake rather than an actual error report
+
+# Examples
+![Sample1](https://user-images.githubusercontent.com/105132829/189573418-5c56788d-60e9-48dc-b118-15f8ff63a926.png)
+![Sample2](https://user-images.githubusercontent.com/105132829/189573443-e88dc231-a9ed-4b88-aa7f-fb6bc8eebef5.png)
+![Sample3](https://user-images.githubusercontent.com/105132829/189573459-9c505e28-c372-482c-be6b-58fba47447b0.png)
+
