@@ -93,7 +93,7 @@ float4 ps_edge(edge_out i) : COLOR0
 
 float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
 {
-    float comp = 1; //we are NOT using mmd's default ShadowMap use HgShadow
+    float comp = 1; //i REFUSE to use mmd's default shadowmap
     if(HgShadow_Valid)
     {
         comp = HgShadow_GetSelfShadowRate(i.ppos);
@@ -195,14 +195,12 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
 
     float4 SweatMask = float4(1,1,1,1); //i fucking give up
     float4 SweatTex = float4(1,1,1,1);
-    float2 uv3 = i.uv2; //this is so that mmd doesnt complain about it
-    uv2.x *= 0.5;
-    uv3.x *= 0.5;
-    uv2.y *= 0.5;   
-    uv3.y *= 0.5;   
+    float2 uv3 = i.uv2; //this is so that it doesnt fuck with anything that's using the mask since the face shouldn't have any emissions this is fine?
+    uv3 *= 0.5;
+    uv2 *= 0.5;
     if(sweat >= 0.25 && sweat <= 0.75){
         SweatTex = tex2D(LYRSampler, uv3);
-         }
+    }
     else if(sweat >= 0.75){
         uv3.y += 0.5;
         SweatTex = tex2D(LYRSampler, uv2);
@@ -230,11 +228,18 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     {
         specularlight = saturate(smoothstep(0, 0.025, specularlight));
         specularlight *= 0.07;
-        color.rgb = lerp(color.rgb, SweatTex, SweatMask);
         color.rgb = lerp(color.rgb, color.rgb + specularlight, Def.a * 2);
     }
     #endif
+
     color.rgb = lerp(color.rgb, Sdw.rgb, saturate(lightsmooth * shadintensity) );
+    
+    #ifdef lyr
+    if(sweat >= 0.25)
+    {
+    color.rgb = lerp(color.rgb, SweatTex, SweatMask);
+    }
+    #endif
 
     #ifdef cubemap
     if(Def.g >= 0.605f  && Def.g <= 0.8f){
@@ -286,28 +291,22 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     if(debug == 1)
     {
         color.rgb = Tex.rgb;
-        color.a = 1;
     }
     else if(debug == 2){
         color.rgb = Def.r;
-        color.a = 1;
     }
     else if(debug == 3){
         color.rgb = Def.g;
-        color.a = 1;
     }
     else if(debug == 4){
         color.rgb = Def.b;
-        color.a = 1;
     }
     else if(debug == 5)
     {
         color.rgb = Sdw.rgb;
-        color.a = 1;
     }
     else if(debug == 6){
         color.rgb = Sdw.a;
-        color.a = 1;
     }
     else if(debug == 7){
         color.rgb = Tex.a;
