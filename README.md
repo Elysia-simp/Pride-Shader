@@ -56,7 +56,7 @@ that should be it really just report any bugs/errors I've made
 Errors related to normals are being looked into (but cannot garentee a 100% fix)
 # Credits
 
-[HariganeP](https://seiga.nicovideo.jp/seiga/im5072241) for HgShadow_ObjHeader
+[HariganeP](https://seiga.nicovideo.jp/seiga/im4112225) for HgShadow_ObjHeader
 
 # Other notes
 
