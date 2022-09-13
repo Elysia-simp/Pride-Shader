@@ -14,7 +14,7 @@ You'll also need to use any Stencil shaders (like alphaeye) and have it support 
 1) obviously a way to decrypt/rip the game
 2) models exported with [minmode's PMX noesis script](https://www.deviantart.com/minmode/art/Update-1-6-Noesis-PMX-VMD-export-809252773)
 
-    PS: I'm not adding support for models exported with blender and/or whatever other means, Sorry but I deem it unneeded to make the shader more complicated than I already made it lol
+    PS: I'm not adding support for models exported with blender and/or whatever other means, telling the user to bake 2 textures (rgb and alpha) from the vertex color channel then telling the shader to use those instead is really unnessecary
     
     
 4) some brain power
