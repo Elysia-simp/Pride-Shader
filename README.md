@@ -7,6 +7,8 @@ everything written here was originally written by QualiArts and as such they hav
 
 You'll also need to use any Stencil shaders (like alphaeye) and have it support the hair's alphamap for stencils with eyebrows and eyes
 
+*I AM ALSO NOT RESPONSIBLE FOR ANY ERRORS YOU MIGHT GET USING THIS SHADER WITH OTHER MODELS THAN WHAT'S INTENDED*
+
 
 # Prerequisites
 1) obviously a way to decrypt/rip the game
