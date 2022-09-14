@@ -52,8 +52,7 @@ vs_out vs_model ( vs_in i)
     o.pos = mul(i.pos, mmd_wvp);
     o.uv = i.uv;
     o.uv2 = i.uv2;
-	o.normal = normalize(mul((float3x3) mmd_world, i.normal));
-    o.tangent = normalize(mul((float3x3) mmd_world, i.tangent));
+    o.normal = normalize(mul((float3x3) mmd_world, i.normal));
     o.view = mmd_cameraPosition - mul(i.pos.xyz, (float3x3)mmd_world);
     o.ppos = o.pos;
     return o;
@@ -71,10 +70,9 @@ edge_out vs_edge (vs_in i)
     edge_out o = (edge_out)0; //okay there was no excuse for the vertex shader
     //but this time it's to cheat and not have all of what VS needs in here as well
     o.vertex = i.vertexcolor;
-    //i.pos.xyz = i.pos.xyz + i.tangent * i.vertexcolor.w * 0.015 ;
     i.pos.xyz = outline(i.pos.xyz, mmd_cameraPosition, normalize(i.normal), 0.0015, i.vertexcolor.w * viewDepth);
     #ifdef tangent_outline
-    i.pos.xyz = outline(i.pos.xyz, mmd_cameraPosition, normalize(i.tangent) + normalize(i.normal), 0.0015, i.vertexcolor.w * viewDepth);
+    i.pos.xyz = outline(i.pos.xyz, mmd_cameraPosition, normalize(i.tangent), 0.0015, i.vertexcolor.w * viewDepth);
     #endif
     o.pos = mul(i.pos, mmd_wvp);
     return o;
