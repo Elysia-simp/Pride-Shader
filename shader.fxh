@@ -91,6 +91,7 @@ float4 ps_edge(edge_out i) : COLOR0
 
 float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
 {
+   
     float comp = 1; //i REFUSE to use mmd's default shadowmap
     if(HgShadow_Valid)
     {
@@ -102,7 +103,8 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     float2 uv2 = i.uv2; //face sweat and miku only emission
     float3 view = normalize(i.view);
     float3 normal = i.normal;
-    float3 reflvect = reflect(normal, view);//I put there here first even tho only the cube map uses it
+    float3 h = normalize(view + -light_d);
+    float3 reflvect = reflect(normal, h);//I put there here first even tho only the cube map uses it
     //I just want to make sure it's handled first before anything
 
 
@@ -146,7 +148,7 @@ float4 ps_model(vs_out i, float vface : VFACE) : COLOR0
     color.a = 1;
 
     //specular
-    float ndoth = dot(normal, view); 
+    float ndoth = dot(normal, h); 
     ndoth = clamp(ndoth, 0, 1);
     float S_Power = 1+SPow;
     float S_Bright = 1+SBright;
