@@ -69,7 +69,7 @@ However this is completely optional (As of right now)
 
 
 
-Any and all error reports should be made in Issues or you can contact me in Discord: Chi#4089
+Any and all error reports should be made in Issues or you can contact me in Discord: cbtdwg
 
 Though do consider reading the usage again before making the report and accidentally sending an honest mistake rather than an actual error report
 
